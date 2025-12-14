@@ -17,8 +17,8 @@ import (
 	"k8s.io/kube-scheduler/config/v1beta2"
 	"k8s.io/kubernetes/pkg/scheduler/framework"
 
-	mock_plugin "github.com/sanposhiho/mini-kube-scheduler/scheduler/plugin/mock"
-	"github.com/sanposhiho/mini-kube-scheduler/scheduler/plugin/resultstore"
+	mock_plugin "github.com/OldBigBuddha/mini-kube-scheduler/scheduler/plugin/mock"
+	"github.com/OldBigBuddha/mini-kube-scheduler/scheduler/plugin/resultstore"
 )
 
 func TestConvertForSimulator(t *testing.T) {

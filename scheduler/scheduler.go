@@ -3,7 +3,7 @@ package scheduler
 import (
 	"context"
 
-	"github.com/sanposhiho/mini-kube-scheduler/minisched"
+	"github.com/OldBigBuddha/mini-kube-scheduler/minisched"
 
 	"golang.org/x/xerrors"
 	v1 "k8s.io/api/core/v1"
@@ -17,8 +17,8 @@ import (
 	"k8s.io/kubernetes/pkg/scheduler/apis/config/scheme"
 	"k8s.io/kubernetes/pkg/scheduler/apis/config/v1beta2"
 
-	"github.com/sanposhiho/mini-kube-scheduler/scheduler/defaultconfig"
-	"github.com/sanposhiho/mini-kube-scheduler/scheduler/plugin"
+	"github.com/OldBigBuddha/mini-kube-scheduler/scheduler/defaultconfig"
+	"github.com/OldBigBuddha/mini-kube-scheduler/scheduler/plugin"
 )
 
 // Service manages scheduler.

@@ -15,8 +15,8 @@ import (
 	"k8s.io/kubernetes/pkg/scheduler/framework/plugins"
 	schedulerRuntime "k8s.io/kubernetes/pkg/scheduler/framework/runtime"
 
-	"github.com/sanposhiho/mini-kube-scheduler/scheduler/defaultconfig"
-	schedulingresultstore "github.com/sanposhiho/mini-kube-scheduler/scheduler/plugin/resultstore"
+	"github.com/OldBigBuddha/mini-kube-scheduler/scheduler/defaultconfig"
+	schedulingresultstore "github.com/OldBigBuddha/mini-kube-scheduler/scheduler/plugin/resultstore"
 )
 
 //go:generate mockgen -destination=./mock/$GOFILE -source=$GOFILE
@@ -142,6 +142,7 @@ func NewPluginConfig(pc []v1beta2.PluginConfig) ([]v1beta2.PluginConfig, error) 
 
 // ConvertForSimulator convert v1beta2.Plugins for simulator.
 // It ignores non-default plugin.
+//
 //nolint:cyclop
 func ConvertForSimulator(pls *v1beta2.Plugins) (*v1beta2.Plugins, error) {
 	newpls := pls.DeepCopy()

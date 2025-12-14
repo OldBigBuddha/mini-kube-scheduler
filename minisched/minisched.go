@@ -7,7 +7,7 @@ import (
 
 	v1 "k8s.io/api/core/v1"
 
-	"github.com/sanposhiho/mini-kube-scheduler/minisched/queue"
+	"github.com/OldBigBuddha/mini-kube-scheduler/minisched/queue"
 	"k8s.io/client-go/informers"
 	clientset "k8s.io/client-go/kubernetes"
 )

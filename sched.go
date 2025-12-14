@@ -1,15 +1,15 @@
 package main
 
 import (
-	"github.com/sanposhiho/mini-kube-scheduler/scheduler"
+	"github.com/OldBigBuddha/mini-kube-scheduler/scheduler"
 	"golang.org/x/xerrors"
 	clientset "k8s.io/client-go/kubernetes"
 	"k8s.io/klog/v2"
 
-	"github.com/sanposhiho/mini-kube-scheduler/config"
-	"github.com/sanposhiho/mini-kube-scheduler/k8sapiserver"
-	"github.com/sanposhiho/mini-kube-scheduler/pvcontroller"
-	"github.com/sanposhiho/mini-kube-scheduler/scheduler/defaultconfig"
+	"github.com/OldBigBuddha/mini-kube-scheduler/config"
+	"github.com/OldBigBuddha/mini-kube-scheduler/k8sapiserver"
+	"github.com/OldBigBuddha/mini-kube-scheduler/pvcontroller"
+	"github.com/OldBigBuddha/mini-kube-scheduler/scheduler/defaultconfig"
 )
 
 // entry point.
