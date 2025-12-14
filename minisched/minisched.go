@@ -30,15 +30,23 @@ type Scheduler struct {
 func New(
 	client clientset.Interface,
 	informerFactory informers.SharedInformerFactory,
-) *Scheduler {
+) (*Scheduler, error) {
 	sched := &Scheduler{
 		SchedulingQueue: queue.New(),
 		client:          client,
 	}
 
+	// TODO: load filter plugins
+
+	scorePlugins, err := createScorePlugins()
+	if err != nil {
+		return nil, fmt.Errorf("failed to create score plugins: %w", err)
+	}
+	sched.scorePlugins = scorePlugins
+
 	addAllEventHandlers(sched, informerFactory)
 
-	return sched
+	return sched, nil
 }
 
 func (sched *Scheduler) Run(ctx context.Context) {
