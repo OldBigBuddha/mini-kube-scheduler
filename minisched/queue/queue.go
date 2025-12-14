@@ -1,7 +1,6 @@
 package queue
 
 import (
-	"fmt"
 	"sync"
 
 	v1 "k8s.io/api/core/v1"
@@ -19,19 +18,9 @@ func New() *SchedulingQueue {
 }
 
 func (s *SchedulingQueue) Add(pod *v1.Pod) error {
-	s.lock.Lock()
-	defer s.lock.Unlock()
-	fmt.Println("hogehoge")
-	s.activeQ = append(s.activeQ, pod)
 	return nil
 }
 
 func (s *SchedulingQueue) NextPod() *v1.Pod {
-	// wait
-	for len(s.activeQ) == 0 {
-	}
-
-	p := s.activeQ[0]
-	s.activeQ = s.activeQ[1:]
-	return p
+	return nil
 }

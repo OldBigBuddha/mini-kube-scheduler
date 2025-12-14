@@ -1,14 +1,8 @@
 package main
 
 import (
-	"context"
-	"fmt"
-	"time"
-
 	"github.com/sanposhiho/mini-kube-scheduler/scheduler"
 	"golang.org/x/xerrors"
-	v1 "k8s.io/api/core/v1"
-	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	clientset "k8s.io/client-go/kubernetes"
 	"k8s.io/klog/v2"
 
@@ -67,44 +61,5 @@ func start() error {
 }
 
 func scenario(client clientset.Interface) error {
-	ctx := context.Background()
-	_, err := client.CoreV1().Nodes().Create(ctx, &v1.Node{
-		ObjectMeta: metav1.ObjectMeta{
-			Name: "node1",
-		},
-	}, metav1.CreateOptions{})
-	if err != nil {
-		return fmt.Errorf("create node: %w", err)
-	}
-
-	klog.Info("scenario: node1 created")
-
-	_, err = client.CoreV1().Pods("default").Create(ctx, &v1.Pod{
-		ObjectMeta: metav1.ObjectMeta{Name: "pod1"},
-		Spec: v1.PodSpec{
-			Containers: []v1.Container{
-				{
-					Name:  "container1",
-					Image: "k8s.gcr.io/pause:3.5",
-				},
-			},
-		},
-	}, metav1.CreateOptions{})
-	if err != nil {
-		return fmt.Errorf("create pod: %w", err)
-	}
-
-	klog.Info("scenario: pod1 created")
-
-	// wait to schedule
-	time.Sleep(4 * time.Second)
-
-	pod, err := client.CoreV1().Pods("default").Get(ctx, "pod1", metav1.GetOptions{})
-	if err != nil {
-		return fmt.Errorf("get pod: %w", err)
-	}
-
-	klog.Info("scenario: pod1 is bound to " + pod.Spec.NodeName)
-
 	return nil
 }
