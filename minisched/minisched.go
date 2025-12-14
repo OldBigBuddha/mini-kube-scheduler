@@ -136,11 +136,12 @@ func (sched *Scheduler) RunFilterPlugins(ctx context.Context, state *framework.C
 
 func (sched *Scheduler) RunScorePlugins(ctx context.Context, state *framework.CycleState, pod *v1.Pod, nodes []*v1.Node) (framework.NodeScoreList, *framework.Status) {
 	scoresMap := sched.createPluginToNodeScores(nodes)
+	klog.Infof("created a score map for %d plugins", len(scoresMap))
 
 	for index, n := range nodes {
 		for _, pl := range sched.scorePlugins {
 			score, status := pl.Score(ctx, state, pod, n.Name)
-			if status.IsSuccess() {
+			if !status.IsSuccess() {
 				// Usually, score plugin will return success
 				return nil, status
 			}
