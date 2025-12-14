@@ -7,20 +7,33 @@ import (
 )
 
 type SchedulingQueue struct {
+	lock    *sync.Cond
 	activeQ []*v1.Pod
-	lock    sync.RWMutex
 }
 
 func New() *SchedulingQueue {
 	return &SchedulingQueue{
+		lock:    sync.NewCond(&sync.Mutex{}),
 		activeQ: []*v1.Pod{},
 	}
 }
 
-func (s *SchedulingQueue) Add(pod *v1.Pod) error {
-	return nil
+func (s *SchedulingQueue) Add(pod *v1.Pod) {
+	s.lock.L.Lock()
+	defer s.lock.L.Unlock()
+
+	s.activeQ = append(s.activeQ, pod)
+	s.lock.Signal()
 }
 
 func (s *SchedulingQueue) NextPod() *v1.Pod {
-	return nil
+	s.lock.L.Lock()
+	for len(s.activeQ) == 0 {
+		s.lock.Wait()
+	}
+
+	p := s.activeQ[0]
+	s.activeQ = s.activeQ[1:]
+	s.lock.L.Unlock()
+	return p
 }
